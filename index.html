@@ -32,7 +32,7 @@
         min-height: 100vh;
       }
 
-      /* Vue 挂载前的首屏骨架，避免大文件预览器资源加载期间出现空白或黑屏。 */
+      /* Vue mounting skeleton — prevents blank screen during load */
       .app-boot-screen {
         min-height: 100vh;
         display: grid;
@@ -49,82 +49,17 @@
       .app-boot-shell {
         width: min(960px, 100%);
         display: grid;
-        grid-template-columns: minmax(220px, 0.85fr) minmax(320px, 1.45fr);
+        grid-template-columns: 1fr;
         gap: 18px;
         align-items: stretch;
       }
 
-      .app-boot-brand,
       .app-boot-preview {
         min-width: 0;
         border: 1px solid rgba(114, 137, 161, 0.2);
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.9);
         box-shadow: 0 24px 70px rgba(41, 66, 90, 0.12);
-      }
-
-      .app-boot-brand {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 26px;
-      }
-
-      .app-boot-title {
-        display: flex;
-        gap: 14px;
-        align-items: center;
-      }
-
-      .app-boot-mark {
-        width: 48px;
-        height: 48px;
-        display: grid;
-        place-items: center;
-        border-radius: 8px;
-        background: #1f966e;
-        color: #ffffff;
-        font-size: 26px;
-        font-weight: 800;
-        line-height: 1;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
-      }
-
-      .app-boot-name {
-        display: block;
-        font-size: 22px;
-        font-weight: 800;
-        line-height: 1.2;
-      }
-
-      .app-boot-status {
-        display: block;
-        margin-top: 6px;
-        color: #6b7b8f;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .app-boot-progress {
-        position: relative;
-        height: 6px;
-        margin-top: 42px;
-        overflow: hidden;
-        border-radius: 999px;
-        background: #dce7ee;
-      }
-
-      .app-boot-progress::after {
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 42%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, #1f966e, #3b82f6);
-        animation: bootProgress 1.35s ease-in-out infinite;
-        content: "";
-      }
-
-      .app-boot-preview {
         display: grid;
         grid-template-rows: auto 1fr;
         overflow: hidden;
@@ -198,20 +133,6 @@
         background-color: #ffffff;
       }
 
-      @keyframes bootProgress {
-        0% {
-          transform: translateX(-110%);
-        }
-
-        50% {
-          transform: translateX(75%);
-        }
-
-        100% {
-          transform: translateX(240%);
-        }
-      }
-
       @keyframes bootShimmer {
         0% {
           background-position: 160% 0;
@@ -227,18 +148,6 @@
           padding: 18px;
         }
 
-        .app-boot-shell {
-          grid-template-columns: 1fr;
-        }
-
-        .app-boot-brand {
-          padding: 22px;
-        }
-
-        .app-boot-progress {
-          margin-top: 26px;
-        }
-
         .app-boot-canvas {
           grid-template-columns: 1fr;
         }
@@ -249,7 +158,6 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .app-boot-progress::after,
         .app-boot-chip,
         .app-boot-line,
         .app-boot-page {
@@ -262,18 +170,8 @@
   </head>
   <body>
     <div id="app">
-      <main class="app-boot-screen" role="status" aria-live="polite" aria-label="正在加载 Flyfish File Viewer">
+      <main class="app-boot-screen" role="status" aria-live="polite" aria-label="Loading File Viewer">
         <div class="app-boot-shell">
-          <section class="app-boot-brand">
-            <div class="app-boot-title">
-              <div class="app-boot-mark" aria-hidden="true">F</div>
-              <div>
-                <strong class="app-boot-name">Flyfish File Viewer</strong>
-                <span class="app-boot-status">Preparing document preview environment...</span>
-              </div>
-            </div>
-            <div class="app-boot-progress" aria-hidden="true"></div>
-          </section>
           <section class="app-boot-preview" aria-hidden="true">
             <div class="app-boot-toolbar">
               <span class="app-boot-dot"></span>
