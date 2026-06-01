@@ -229,22 +229,13 @@
         });
       }
 
-      // 3. Replace/hide FlyFish logo (insert text-based brand)
-      function replaceLogo() {
+      // 3. Hide FlyFish logo (brand text already replaced by replaceBrandText)
+      function hideLogo() {
         document.querySelectorAll('img').forEach(img => {
           const src = (img.getAttribute('src') || '').toLowerCase();
           const alt = (img.getAttribute('alt') || '').toLowerCase();
           if (src.includes('logo') || alt.includes('logo')) {
-            // Hide original logo image
             img.style.display = 'none';
-            // Insert text-based Craftisle brand if not already added
-            if (!img.parentNode.querySelector('.craftisle-brand-text')) {
-              const span = document.createElement('span');
-              span.className = 'craftisle-brand-text';
-              span.textContent = 'Craftisle';
-              span.style.cssText = 'font-size:18px;font-weight:700;color:#1f966e;font-family:Aptos,sans-serif;';
-              img.parentNode.insertBefore(span, img.nextSibling);
-            }
           }
         });
       }
@@ -254,19 +245,19 @@
         document.addEventListener('DOMContentLoaded', () => {
           replaceBrandText();
           disableSampleClicks();
-          replaceLogo();
+          hideLogo();
         });
       } else {
         replaceBrandText();
         disableSampleClicks();
-        replaceLogo();
+        hideLogo();
       }
 
       // Re-run after every Vue re-render
       const observer = new MutationObserver(() => {
         replaceBrandText();
         disableSampleClicks();
-        replaceLogo();
+        hideLogo();
       });
       observer.observe(document.body, { childList: true, subtree: true });
     </script>
