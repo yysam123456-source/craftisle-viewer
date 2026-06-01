@@ -165,6 +165,29 @@
         }
       }
     </style>
+    <script>
+      // Hide FlyFish brand area after Vue mounts
+      const hideBrand = () => {
+        const els = document.querySelectorAll('[class*="brand"]');
+        els.forEach(el => el.style.display = 'none');
+      };
+      // Try immediately + watch for DOM changes
+      hideBrand();
+      new MutationObserver(hideBrand).observe(document.body, { childList: true, subtree: true });
+
+      // Disable sample file clicks (clear urls) after Vue mounts
+      const disableSampleClic = () => {
+        // Find all sample file items and remove click handlers
+        const items = document.querySelectorAll('[class*="sample"]');
+        items.forEach(el => {
+          el.style.pointerEvents = 'none';
+          el.style.opacity = '0.6';
+        });
+      };
+      setTimeout(disableSampleClic, 2000);
+      new MutationObserver(() => setTimeout(disableSampleClic, 500))
+        .observe(document.body, { childList: true, subtree: true });
+    </script>
     <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
   </head>
