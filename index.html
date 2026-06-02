@@ -5,7 +5,7 @@
     <link rel="icon" href="./favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#eef5f1">
-    <title>File Viewer — Preview 135+ File Formats</title>
+    <title>Craftisle File Viewer</title>
     <style>
       :root {
         color-scheme: light;
@@ -166,10 +166,10 @@
       }
     </style>
     <script>
-      // === Craftisle rebrand & sample-disable script ===
-      //  Runs after Vue mounts; re-runs on DOM mutations.
+      // === Craftisle: hide sample panel + rebrand ===
+      //  Strategy: DOM manipulation ONLY (no JS bundle modification)
 
-      // 1. Replace brand text in ALL text nodes (FlyFish → Craftisle, etc.)
+      // 1. Replace brand text in ALL text nodes
       function replaceBrandText() {
         const walker = document.createTreeWalker(
           document.body,
@@ -190,7 +190,7 @@
           }
         }
 
-        // Also replace in attributes (aria-label, title, placeholder)
+        // Also replace in attributes
         document.querySelectorAll('[aria-label], [title], [placeholder]').forEach(el => {
           ['aria-label', 'title', 'placeholder'].forEach(attr => {
             const val = el.getAttribute(attr);
@@ -207,29 +207,41 @@
         });
       }
 
-      // 2. Disable sample file clicks (clear example URLs)
-      function disableSampleClicks() {
-        // Remove href from <a> tags pointing to /example/
-        document.querySelectorAll('a[href*="example/"]').forEach(el => {
-          el.removeAttribute('href');
-          el.style.pointerEvents = 'none';
-          el.style.opacity = '0.5';
-          el.title = 'Sample preview disabled';
-        });
-
-        // Remove onclick handlers that reference example files
-        document.querySelectorAll('*').forEach(el => {
-          const onclick = (el.getAttribute('onclick') || '').toLowerCase();
-          const href = (el.getAttribute('href') || '').toLowerCase();
-          if (onclick.includes('example') || href.includes('example')) {
-            el.removeAttribute('onclick');
-            el.style.pointerEvents = 'none';
-            el.style.opacity = '0.5';
+      // 2. Hide the ENTIRE sample files panel (left sidebar)
+      function hideSamplePanel() {
+        // Find "Sample Files" text node, then hide its container
+        const walker = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.nodeValue.includes('Sample Files')) {
+            // Walk up 5-8 levels to find the panel container
+            let el = node.parentElement;
+            for (let i = 0; i < 8 && el; i++) {
+              el = el.parentElement;
+            }
+            if (el) {
+              el.style.display = 'none';
+              return; // Done
+            }
           }
+        }
+
+        // Fallback: hide all <a href*="example/"> parent containers
+        document.querySelectorAll('a[href*="example/"]').forEach(el => {
+          let parent = el.parentElement;
+          for (let i = 0; i < 6 && parent; i++) {
+            parent = parent.parentElement;
+          }
+          if (parent) parent.style.display = 'none';
         });
       }
 
-      // 3. Hide FlyFish logo (brand text already replaced by replaceBrandText)
+      // 3. Hide FlyFish logo
       function hideLogo() {
         document.querySelectorAll('img').forEach(img => {
           const src = (img.getAttribute('src') || '').toLowerCase();
@@ -240,24 +252,23 @@
         });
       }
 
-      // Run once on DOMContentLoaded
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          replaceBrandText();
-          disableSampleClicks();
-          hideLogo();
-        });
-      } else {
+      // Run all functions
+      function runAll() {
         replaceBrandText();
-        disableSampleClicks();
+        hideSamplePanel();
         hideLogo();
+      }
+
+      // Run once on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runAll);
+      } else {
+        runAll();
       }
 
       // Re-run after every Vue re-render
       const observer = new MutationObserver(() => {
-        replaceBrandText();
-        disableSampleClicks();
-        hideLogo();
+        runAll();
       });
       observer.observe(document.body, { childList: true, subtree: true });
     </script>
