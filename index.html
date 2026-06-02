@@ -254,6 +254,7 @@
 
       // Run all functions
       function runAll() {
+        if (!document.body) return; // <head> script: body not ready yet
         replaceBrandText();
         hideSamplePanel();
         hideLogo();
@@ -270,7 +271,10 @@
       const observer = new MutationObserver(() => {
         runAll();
       });
-      observer.observe(document.body, { childList: true, subtree: true });
+      // Observe document.documentElement instead of document.body
+      // because <head> script runs before <body> exists.
+      const target = document.body || document.documentElement;
+      if (target) observer.observe(target, { childList: true, subtree: true });
     </script>
     <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
