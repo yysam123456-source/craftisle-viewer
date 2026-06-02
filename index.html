@@ -164,85 +164,52 @@
           animation: none;
         }
       }
+
+      /* === Craftisle: hide sample files section ONLY === */
+      /* Hide .sample-picker (sample files section), NOT the entire panel! */
+      .sample-picker,
+      [class*="sample-picker"] {
+        display: none !important;
+      }
     </style>
     <script>
-      // === Craftisle: hide sample panel + rebrand ===
-      //  Strategy: DOM manipulation ONLY (no JS bundle modification)
+      // === Craftisle: rebrand only (no panel hiding here) ===
+      function doFixes() {
+        if (!document.body) return;
 
-      // 1. Replace brand text in ALL text nodes
-      function replaceBrandText() {
-        const walker = document.createTreeWalker(
+        // 1. Replace brand text in all text nodes
+        const walk = document.createTreeWalker(
           document.body,
           NodeFilter.SHOW_TEXT,
           null,
           false
         );
         let node;
-        while (node = walker.nextNode()) {
-          if (node.nodeValue.includes('FlyFish')) {
-            node.nodeValue = node.nodeValue.replace(/FlyFish/g, 'Craftisle');
+        while (node = walk.nextNode()) {
+          const v = node.nodeValue;
+          if (v.includes('FlyFish')) {
+            node.nodeValue = v.replace(/FlyFish/g, 'Craftisle');
           }
-          if (node.nodeValue.includes('flyfish')) {
-            node.nodeValue = node.nodeValue.replace(/flyfish/g, 'craftisle');
+          if (v.includes('flyfish')) {
+            node.nodeValue = v.replace(/flyfish/g, 'craftisle');
           }
-          if (node.nodeValue.includes('Pure Web')) {
-            node.nodeValue = node.nodeValue.replace(/Pure Web/g, 'Free Online');
+          if (v.includes('Pure Web')) {
+            node.nodeValue = v.replace(/Pure Web/g, 'Free Online');
           }
         }
 
-        // Also replace in attributes
-        document.querySelectorAll('[aria-label], [title], [placeholder]').forEach(el => {
-          ['aria-label', 'title', 'placeholder'].forEach(attr => {
-            const val = el.getAttribute(attr);
-            if (val && val.includes('FlyFish')) {
-              el.setAttribute(attr, val.replace(/FlyFish/g, 'Craftisle'));
-            }
-            if (val && val.includes('flyfish')) {
-              el.setAttribute(attr, val.replace(/flyfish/g, 'craftisle'));
-            }
-            if (val && val.includes('Pure Web')) {
-              el.setAttribute(attr, val.replace(/Pure Web/g, 'Free Online'));
-            }
+        // 2. Replace brand in attributes
+        document.querySelectorAll('[aria-label],[title],[placeholder]').forEach(el => {
+          ['aria-label','title','placeholder'].forEach(attr => {
+            const v = el.getAttribute(attr);
+            if (!v) return;
+            if (v.includes('FlyFish')) el.setAttribute(attr, v.replace(/FlyFish/g, 'Craftisle'));
+            if (v.includes('flyfish')) el.setAttribute(attr, v.replace(/flyfish/g, 'craftisle'));
+            if (v.includes('Pure Web')) el.setAttribute(attr, v.replace(/Pure Web/g, 'Free Online'));
           });
         });
-      }
 
-      // 2. Hide the ENTIRE sample files panel (left sidebar)
-      function hideSamplePanel() {
-        // Find "Sample Files" text node, then hide its container
-        const walker = document.createTreeWalker(
-          document.body,
-          NodeFilter.SHOW_TEXT,
-          null,
-          false
-        );
-        let node;
-        while (node = walker.nextNode()) {
-          if (node.nodeValue.includes('Sample Files')) {
-            // Walk up 5-8 levels to find the panel container
-            let el = node.parentElement;
-            for (let i = 0; i < 8 && el; i++) {
-              el = el.parentElement;
-            }
-            if (el) {
-              el.style.display = 'none';
-              return; // Done
-            }
-          }
-        }
-
-        // Fallback: hide all <a href*="example/"> parent containers
-        document.querySelectorAll('a[href*="example/"]').forEach(el => {
-          let parent = el.parentElement;
-          for (let i = 0; i < 6 && parent; i++) {
-            parent = parent.parentElement;
-          }
-          if (parent) parent.style.display = 'none';
-        });
-      }
-
-      // 3. Hide FlyFish logo
-      function hideLogo() {
+        // 3. Hide logo images
         document.querySelectorAll('img').forEach(img => {
           const src = (img.getAttribute('src') || '').toLowerCase();
           const alt = (img.getAttribute('alt') || '').toLowerCase();
@@ -252,32 +219,17 @@
         });
       }
 
-      // Run all functions
-      function runAll() {
-        if (!document.body) return; // <head> script: body not ready yet
-        replaceBrandText();
-        hideSamplePanel();
-        hideLogo();
-      }
-
       // Run once on DOM ready
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runAll);
+        document.addEventListener('DOMContentLoaded', doFixes);
       } else {
-        runAll();
+        doFixes();
       }
 
-      // Re-run after every Vue re-render
-      const observer = new MutationObserver(() => {
-        runAll();
-      });
-      // Observe document.documentElement instead of document.body
-      // because <head> script runs before <body> exists.
-      const target = document.body || document.documentElement;
-      if (target) observer.observe(target, { childList: true, subtree: true });
+      // Re-run after Vue re-renders
+      const obs = new MutationObserver(() => { doFixes(); });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
     </script>
-    <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
   </head>
   <body>
     <div id="app">
@@ -302,5 +254,7 @@
         </div>
       </main>
     </div>
+    <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
   </body>
 </html>
