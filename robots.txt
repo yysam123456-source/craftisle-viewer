@@ -1,0 +1,30 @@
+# robots.txt — Craftisle File Viewer
+# Deployed at viewer.craftisle.com
+
+# === AI 爬虫：允许访问（GEO 优化）===
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Cohere-AYA
+Allow: /
+
+# === 通用爬虫 ===
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+# Sitemap
+Sitemap: https://viewer.craftisle.com/sitemap.xml

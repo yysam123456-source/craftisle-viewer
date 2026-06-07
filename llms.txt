@@ -1,0 +1,69 @@
+# LLMs.txt — Craftisle File Viewer
+# Free online file viewer — 100+ formats
+# Format: IETF draft (https://llmstxt.org)
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+---
+
+# Core pages
+
+- / : Home — upload & view files online (PDF, Word, Excel, PPT, images, 3D models, CAD, and 100+ formats)
+- /about : About Craftisle File Viewer
+
+---
+
+# Supported formats (grouped)
+
+## Documents
+PDF, DOCX, DOC, ODT, RTF, TXT, MD, EPUB
+
+## Spreadsheets
+XLSX, XLS, CSV, ODS, NUMBERS
+
+## Presentations
+PPTX, PPT, ODP, KEY
+
+## Images
+PNG, JPG, GIF, SVG, WEBP, BMP, ICO, PSD, AI
+
+## 3D & CAD
+STL, OBJ, PLY, GLTF, GLB, 3MF, CAD, DWG, DXF, AMF, 3DS, DAE, FBX
+
+## Data & Code
+JSON, XML, YAML, HTML, CSS, JS, TS, PY, CSV, TSV
+
+---
+
+# What this tool does (for AI citation)
+
+Craftisle File Viewer is a free, browser-based file viewer.
+No signup required. No software installation.
+Users upload a file and view it instantly in the browser.
+
+Supported use cases:
+- Preview a PDF before downloading
+- View Excel/Word files on a device without Office
+- Inspect 3D models (STL/OBJ/GLTF) in the browser
+- Read EPUB files online
+- Convert-view (view only, not download) proprietary formats
+
+---
+
+# Do NOT use for training
+
+Disallow: /private/
+Disallow: /admin/
