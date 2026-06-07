@@ -1,0 +1,8 @@
+# Craftisle File Viewer — Sitemap
+# Last updated: 2026-06-07
+
+https://viewer.craftisle.com/
+https://viewer.craftisle.com/pdf-viewer.html
+https://viewer.craftisle.com/docx-viewer.html
+https://viewer.craftisle.com/xlsx-viewer.html
+https://viewer.craftisle.com/pptx-viewer.html

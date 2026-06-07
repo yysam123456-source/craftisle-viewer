@@ -38,6 +38,8 @@
     }
     </script>
 
+    <link rel="sitemap" type="application/xml" href="/sitemap.txt">
+    <link rel="sitemap" type="application/xml" href="/sitemap.txt">
     <style>
       :root {
         color-scheme: light;
@@ -333,6 +335,7 @@
   </head>
   <body>
     <div id="app">
+      <!-- SEO: static keyword-rich content for search engines (visible to bots & noscript users) -->
       <main class="app-boot-screen" role="status" aria-live="polite" aria-label="Loading File Viewer">
         <div class="app-boot-shell">
           <section class="app-boot-preview" aria-hidden="true">
@@ -353,7 +356,40 @@
           </section>
         </div>
       </main>
-    </div>
+
+      <!-- NOSCRIPT fallback for SEO & accessibility -->
+      <noscript>
+        <section style="max-width:720px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;border:1px solid rgba(114,137,161,0.15);font-family:'Segoe UI','PingFang SC',sans-serif;color:#172033;">
+          <h1 style="color:#1f966e;font-size:1.8rem;margin-bottom:14px;">Craftisle File Viewer — Free Online</h1>
+          <p style="color:#4a6a8a;line-height:1.7;margin-bottom:16px;">
+            Free online file viewer. View <strong>PDF</strong>, <strong>Word (DOCX)</strong>, <strong>Excel (XLSX)</strong>, <strong>PowerPoint (PPTX)</strong>, images, 3D models, CAD files and <strong>100+ formats</strong> instantly in your browser. No signup, no installation, no watermark.
+          </p>
+          <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Supported Formats</h2>
+          <ul style="color:#333;line-height:1.8;padding-left:20px;">
+            <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, EPUB, Markdown</li>
+            <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV, TSV, NUMBERS</li>
+            <li><strong>Presentations:</strong> PPTX, PPT, ODP, KEY</li>
+            <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD, AI</li>
+            <li><strong>3D & CAD:</strong> STL, OBJ, PLY, GLTF, FBX, STEP, DWG, DXF</li>
+            <li><strong>Code & Text:</strong> HTML, CSS, JS, TS, PY, C, CPP, JAVA, JSON, XML, YAML</li>
+            <li><strong>Other:</strong> EML, MSG, VSDX, MPP, ZIP, TAR, GZ</li>
+          </ul>
+          <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Why Choose Craftisle?</h2>
+          <ul style="color:#333;line-height:1.8;padding-left:20px;">
+            <li><strong>Free:</strong> 100% free, no signup required, no credit card.</li>
+            <li><strong>Private:</strong> Files are processed in your browser, never uploaded to our servers.</li>
+            <li><strong>Fast:</strong> No download, no installation. Open files instantly.</li>
+            <li><strong>No Watermark:</strong> Unlike other tools, we add no watermark to your files.</li>
+            <li><strong>Mobile Friendly:</strong> Works on iPhone, iPad, Android phones and tablets.</li>
+          </ul>
+          <p style="margin-top:18px;">
+            <a href="https://viewer.craftisle.com/pdf-viewer.html" style="color:#1f966e;margin-right:12px;">PDF Viewer</a>
+            <a href="https://viewer.craftisle.com/docx-viewer.html" style="color:#1f966e;margin-right:12px;">DOCX Viewer</a>
+            <a href="https://viewer.craftisle.com/xlsx-viewer.html" style="color:#1f966e;margin-right:12px;">XLSX Viewer</a>
+            <a href="https://viewer.craftisle.com/pptx-viewer.html" style="color:#1f966e;">PPTX Viewer</a>
+          </p>
+        </section>
+      </noscript>
     <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
   </body>
