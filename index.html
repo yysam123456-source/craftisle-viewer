@@ -5,6 +5,7 @@
     <link rel="icon" href="./favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#eef5f1">
+    <title>Craftisle File Viewer</title>
     <meta name="description" content="Free online file viewer. View PDF, Word, Excel, PPT, images, 3D models, CAD files and 100+ formats instantly in your browser. No signup required.">
     <meta property="og:title" content="Craftisle File Viewer — Free Online">
     <meta property="og:description" content="View PDF, Word, Excel, PPT, images, 3D models and 100+ file formats free online. No installation, no signup.">
@@ -15,7 +16,7 @@
     <meta name="twitter:title" content="Craftisle File Viewer — Free Online">
     <meta name="twitter:description" content="View 100+ file formats free online. PDF, Word, Excel, PPT, images, 3D models and more.">
     <meta name="twitter:image" content="https://viewer.craftisle.com/favicon.ico">
-    <title>Craftisle File Viewer</title>
+    <link rel="sitemap" type="application/xml" href="/sitemap.txt">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -37,9 +38,6 @@
       }
     }
     </script>
-
-    <link rel="sitemap" type="application/xml" href="/sitemap.txt">
-    <link rel="sitemap" type="application/xml" href="/sitemap.txt">
     <style>
       :root {
         color-scheme: light;
@@ -205,39 +203,7 @@
       [class*="sample-picker"] {
         display: none !important;
       }
-
-      /* === Craftisle: sidebar ad slot === */
-      .craftisle-ad-sidebar {
-        margin-top: 16px;
-        padding: 10px;
-        background: rgba(255,255,255,0.55);
-        border-radius: 10px;
-        border: 1px solid rgba(114,137,161,0.12);
-        min-height: 250px;
-      }
-      .craftisle-ad-sidebar .ad-label {
-        font-size: 10px;
-        color: #9aacbb;
-        text-align: center;
-        margin-bottom: 6px;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        font-weight: 500;
-      }
-      .craftisle-ad-sidebar ins.adsbygoogle {
-        display: block;
-        width: 100%;
-        min-height: 250px;
-      }
-      /* Hide ad container when AdSense is not configured */
-      .craftisle-ad-sidebar[data-client=""] {
-        display: none !important;
-      }
     </style>
-    <!-- Google AdSense — loaded only when client ID is configured -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="
-      crossorigin="anonymous"
-      onerror="this.dataset.loadError='1'"></script>
     <script>
       // === Craftisle: rebrand only (no panel hiding here) ===
       function doFixes() {
@@ -292,50 +258,13 @@
         doFixes();
       }
 
-      // === Craftisle: inject sidebar ad ===
-      function injectSidebarAd() {
-        if (!document.body) return;
-        // Avoid duplicate injection
-        if (document.querySelector('.craftisle-ad-sidebar')) return;
-
-        // Find the left panel / control panel — try multiple selectors
-        const leftPanel =
-          document.querySelector('.control-panel') ||
-          document.querySelector('.panel-left') ||
-          document.querySelector('[class*="control-panel"]') ||
-          document.querySelector('[class*="panel-left"]');
-        if (!leftPanel) return;
-
-        const clientId = '';
-        if (!clientId || clientId === '') return; // not configured yet
-
-        const adWrap = document.createElement('div');
-        adWrap.className = 'craftisle-ad-sidebar';
-        adWrap.setAttribute('data-client', clientId);
-        adWrap.innerHTML =
-          '<div class="ad-label">Sponsored</div>' +
-          '<ins class="adsbygoogle" style="display:block" data-ad-client="' + clientId + '" data-ad-slot="viewer-sidebar" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-        leftPanel.appendChild(adWrap);
-
-        // Trigger AdSense load
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          // AdSense not ready — will auto-retry
-        }
-      }
-
       // Re-run after Vue re-renders
-      const obs = new MutationObserver(() => {
-        doFixes();
-        injectSidebarAd();
-      });
+      const obs = new MutationObserver(() => { doFixes(); });
       obs.observe(document.documentElement, { childList: true, subtree: true });
     </script>
   </head>
   <body>
     <div id="app">
-      <!-- SEO: static keyword-rich content for search engines (visible to bots & noscript users) -->
       <main class="app-boot-screen" role="status" aria-live="polite" aria-label="Loading File Viewer">
         <div class="app-boot-shell">
           <section class="app-boot-preview" aria-hidden="true">
@@ -356,41 +285,24 @@
           </section>
         </div>
       </main>
-
-      <!-- NOSCRIPT fallback for SEO & accessibility -->
-      <noscript>
-        <section style="max-width:720px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;border:1px solid rgba(114,137,161,0.15);font-family:'Segoe UI','PingFang SC',sans-serif;color:#172033;">
-          <h1 style="color:#1f966e;font-size:1.8rem;margin-bottom:14px;">Craftisle File Viewer — Free Online</h1>
-          <p style="color:#4a6a8a;line-height:1.7;margin-bottom:16px;">
-            Free online file viewer. View <strong>PDF</strong>, <strong>Word (DOCX)</strong>, <strong>Excel (XLSX)</strong>, <strong>PowerPoint (PPTX)</strong>, images, 3D models, CAD files and <strong>100+ formats</strong> instantly in your browser. No signup, no installation, no watermark.
-          </p>
-          <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Supported Formats</h2>
-          <ul style="color:#333;line-height:1.8;padding-left:20px;">
-            <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, EPUB, Markdown</li>
-            <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV, TSV, NUMBERS</li>
-            <li><strong>Presentations:</strong> PPTX, PPT, ODP, KEY</li>
-            <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD, AI</li>
-            <li><strong>3D & CAD:</strong> STL, OBJ, PLY, GLTF, FBX, STEP, DWG, DXF</li>
-            <li><strong>Code & Text:</strong> HTML, CSS, JS, TS, PY, C, CPP, JAVA, JSON, XML, YAML</li>
-            <li><strong>Other:</strong> EML, MSG, VSDX, MPP, ZIP, TAR, GZ</li>
-          </ul>
-          <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Why Choose Craftisle?</h2>
-          <ul style="color:#333;line-height:1.8;padding-left:20px;">
-            <li><strong>Free:</strong> 100% free, no signup required, no credit card.</li>
-            <li><strong>Private:</strong> Files are processed in your browser, never uploaded to our servers.</li>
-            <li><strong>Fast:</strong> No download, no installation. Open files instantly.</li>
-            <li><strong>No Watermark:</strong> Unlike other tools, we add no watermark to your files.</li>
-            <li><strong>Mobile Friendly:</strong> Works on iPhone, iPad, Android phones and tablets.</li>
-          </ul>
-          <p style="margin-top:18px;">
-            <a href="https://viewer.craftisle.com/pdf-viewer.html" style="color:#1f966e;margin-right:12px;">PDF Viewer</a>
-            <a href="https://viewer.craftisle.com/docx-viewer.html" style="color:#1f966e;margin-right:12px;">DOCX Viewer</a>
-            <a href="https://viewer.craftisle.com/xlsx-viewer.html" style="color:#1f966e;margin-right:12px;">XLSX Viewer</a>
-            <a href="https://viewer.craftisle.com/pptx-viewer.html" style="color:#1f966e;">PPTX Viewer</a>
-          </p>
-        </section>
-      </noscript>
+    </div>
     <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
+    <noscript>
+      <section style="max-width:720px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;border:1px solid rgba(114,137,161,0.15);font-family:'Segoe UI','PingFang SC',sans-serif;color:#172033;">
+        <h1 style="color:#1f966e;font-size:1.8rem;margin-bottom:14px;">Craftisle File Viewer — Free Online</h1>
+        <p style="color:#4a6a8a;line-height:1.7;margin-bottom:16px;">
+          Free online file viewer. View <strong>PDF</strong>, <strong>Word (DOCX)</strong>, <strong>Excel (XLSX)</strong>, <strong>PowerPoint (PPTX)</strong>, images, 3D models, CAD files and <strong>100+ formats</strong> instantly in your browser. No signup, no installation.
+        </p>
+        <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Supported Formats</h2>
+        <ul style="color:#333;line-height:1.8;padding-left:20px;">
+          <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, EPUB</li>
+          <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV</li>
+          <li><strong>Presentations:</strong> PPTX, PPT, ODP</li>
+          <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD</li>
+          <li><strong>3D & CAD:</strong> STL, OBJ, PLY, GLTF, FBX, STEP, DWG, DXF</li>
+        </ul>
+      </section>
+    </noscript>
   </body>
 </html>
