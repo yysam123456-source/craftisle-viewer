@@ -1,13 +1,21 @@
 // monetag.js — Ad loader & toggle controller
-// Usage: <script src="/monetag.js"></script> in </head>
+// 读取顺序：window.ADVER_ENABLE（Vercel 环境变量）> localStorage 覆盖
 (function () {
   const STORAGE_KEY = 'adver_enable';
 
-  // Read toggle state from localStorage, default OFF (safe for AdSense application)
-  const enabled = localStorage.getItem(STORAGE_KEY) === 'true';
+  // 1. 优先读 Vercel 注入的 window.ADVER_ENABLE
+  let enabled = window.ADVER_ENABLE === 'true';
+
+  // 2. localStorage 可以覆盖（开发/调试用）
+  const localOverride = localStorage.getItem(STORAGE_KEY);
+  if (localOverride !== null) {
+    enabled = localOverride === 'true';
+  }
+
+  // 3. 暴露给全局，供调试
   window.ADVER_ENABLE = enabled ? 'true' : 'false';
 
-  // Load Monetag Vignette Banner when enabled (wait for body to exist)
+  // Load Monetag Vignette Banner when enabled
   if (enabled) {
     const loadAd = function () {
       const s = document.createElement('script');
@@ -27,17 +35,5 @@
     const current = localStorage.getItem(STORAGE_KEY) === 'true';
     localStorage.setItem(STORAGE_KEY, (!current).toString());
     location.reload();
-  };
-
-  // Show/hide the ad toggle button (double-click footer 5 times to reveal)
-  window.__footerClicks = 0;
-  window.__showAdToggle = function () {
-    window.__footerClicks++;
-    if (window.__footerClicks >= 5) {
-      const btn = document.getElementById('__ad-toggle-btn');
-      if (btn) btn.style.display = 'block';
-      window.__footerClicks = 0;
-    }
-    setTimeout(() => { window.__footerClicks = 0; }, 3000);
   };
 })();
