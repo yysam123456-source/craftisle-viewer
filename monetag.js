@@ -7,12 +7,19 @@
   const enabled = localStorage.getItem(STORAGE_KEY) === 'true';
   window.ADVER_ENABLE = enabled ? 'true' : 'false';
 
-  // Load Monetag Vignette Banner when enabled
+  // Load Monetag Vignette Banner when enabled (wait for body to exist)
   if (enabled) {
-    const s = document.createElement('script');
-    s.dataset.zone = '11117037';
-    s.src = 'https://n6wxm.com/vignette.min.js';
-    document.body.appendChild(s);
+    const loadAd = function () {
+      const s = document.createElement('script');
+      s.dataset.zone = '11117037';
+      s.src = 'https://n6wxm.com/vignette.min.js';
+      document.body.appendChild(s);
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadAd);
+    } else {
+      loadAd();
+    }
   }
 
   // Expose toggle function for the settings button
