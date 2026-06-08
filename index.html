@@ -262,7 +262,6 @@
       const obs = new MutationObserver(() => { doFixes(); });
       obs.observe(document.documentElement, { childList: true, subtree: true });
     </script>
-  <script src="/monetag.js"></script>
   </head>
   <body>
     <div id="app">
@@ -305,5 +304,6 @@
         </ul>
       </section>
     </noscript>
-  </body>
+  <script src="/monetag.js"></script>
+</body>
 </html>
