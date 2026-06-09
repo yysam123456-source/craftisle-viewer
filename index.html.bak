@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1E3A5F">
+    <title>Craftisle File Viewer</title>
+    <style>
+      :root {
+        color-scheme: light;
+        background: #F8FAFC;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100%;
+        background: #F8FAFC;
+        color: #1E3A5F;
+        font-family: 'Inter', "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        min-height: 100vh;
+      }
+
+      #app {
+        min-height: 100vh;
+      }
+
+      /* Vue mounting skeleton — prevents blank screen during load */
+      .app-boot-screen {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        background:
+          linear-gradient(90deg, rgba(30, 58, 95, 0.07) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(30, 58, 95, 0.06) 1px, transparent 1px),
+          linear-gradient(135deg, #F8FAFC 0%, #ffffff 52%, #F0FDF9 100%);
+        background-size: 28px 28px, 28px 28px, auto;
+        box-sizing: border-box;
+      }
+
+      .app-boot-shell {
+        width: min(960px, 100%);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .app-boot-preview {
+        min-width: 0;
+        border: 1px solid rgba(30, 58, 95, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 24px 70px rgba(30, 58, 95, 0.12);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+      }
+
+      .app-boot-toolbar {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(30, 58, 95, 0.18);
+      }
+
+      .app-boot-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #00C9A7;
+      }
+
+      .app-boot-chip,
+      .app-boot-line,
+      .app-boot-page {
+        background: linear-gradient(90deg, #E8F0F8 0%, #F0FDF9 45%, #E6F4F2 100%);
+        background-size: 240% 100%;
+        animation: bootShimmer 1.6s ease-in-out infinite;
+      }
+
+      .app-boot-chip {
+        width: 86px;
+        height: 18px;
+        border-radius: 999px;
+      }
+
+      .app-boot-chip:nth-child(4) {
+        width: 118px;
+        margin-left: auto;
+      }
+
+      .app-boot-canvas {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 18px;
+        padding: 18px;
+        background: #F0FDF9;
+      }
+
+      .app-boot-nav {
+        display: grid;
+        gap: 12px;
+        align-content: start;
+      }
+
+      .app-boot-line {
+        height: 14px;
+        border-radius: 999px;
+      }
+
+      .app-boot-line:nth-child(2) {
+        width: 72%;
+      }
+
+      .app-boot-line:nth-child(3) {
+        width: 86%;
+      }
+
+      .app-boot-page {
+        min-height: 300px;
+        border: 1px solid rgba(30, 58, 95, 0.16);
+        border-radius: 8px;
+        background-color: #ffffff;
+      }
+
+      @keyframes bootShimmer {
+        0% {
+          background-position: 160% 0;
+        }
+
+        100% {
+          background-position: -120% 0;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .app-boot-screen {
+          padding: 18px;
+        }
+
+        .app-boot-canvas {
+          grid-template-columns: 1fr;
+        }
+
+        .app-boot-nav {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .app-boot-chip,
+        .app-boot-line,
+        .app-boot-page {
+          animation: none;
+        }
+      }
+
+      /* === Craftisle: hide sample files section ONLY === */
+      /* Hide .sample-picker (sample files section), NOT the entire panel! */
+      .sample-picker,
+      [class*="sample-picker"] {
+        display: none !important;
+      }
+
+      /* === Craftisle: sidebar ad slot === */
+      .craftisle-ad-sidebar {
+        margin-top: 16px;
+        padding: 10px;
+        background: rgba(255,255,255,0.55);
+        border-radius: 10px;
+        border: 1px solid rgba(30, 58, 95, 0.12);
+        min-height: 250px;
+      }
+      .craftisle-ad-sidebar .ad-label {
+        font-size: 10px;
+        color: #1E3A5F;
+        text-align: center;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        font-weight: 500;
+      }
+      .craftisle-ad-sidebar ins.adsbygoogle {
+        display: block;
+        width: 100%;
+        min-height: 250px;
+      }
+      /* Hide ad container when AdSense is not configured */
+      .craftisle-ad-sidebar[data-client=""] {
+        display: none !important;
+      }
+    </style>
+    <!-- Google AdSense — loaded only when client ID is configured -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="
+      crossorigin="anonymous"
+      onerror="this.dataset.loadError='1'"></script>
+    <script>
+      // === Craftisle: rebrand only (no panel hiding here) ===
+      function doFixes() {
+        if (!document.body) return;
+
+        // 0. Inject Craftisle SVG logo into toolbar
+        var toolbar = document.querySelector('.app-boot-toolbar') ||
+                     document.querySelector('[class*="toolbar"]');
+        if (toolbar && !document.querySelector('.craftisle-logo')) {
+          var img = document.createElement('img');
+          img.src = './assets/logo.svg';
+          img.alt = 'Craftisle';
+          img.className = 'craftisle-logo';
+          img.style.cssText = 'height:28px;width:auto;margin-right:12px;flex-shrink:0';
+          toolbar.insertBefore(img, toolbar.firstChild);
+        }
+
+        // 1. Replace brand text in all text nodes
+        const walk = document.createTreeWalker(
+          document.body,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        let node;
+        while (node = walk.nextNode()) {
+          const v = node.nodeValue;
+          if (v.includes('FlyFish')) {
+            node.nodeValue = v.replace(/FlyFish/g, 'Craftisle');
+          }
+          if (v.includes('flyfish')) {
+            node.nodeValue = v.replace(/flyfish/g, 'craftisle');
+          }
+          if (v.includes('Pure Web')) {
+            node.nodeValue = v.replace(/Pure Web/g, 'Free Online');
+          }
+        }
+
+        // 2. Replace brand in attributes
+        document.querySelectorAll('[aria-label],[title],[placeholder]').forEach(el => {
+          ['aria-label','title','placeholder'].forEach(attr => {
+            const v = el.getAttribute(attr);
+            if (!v) return;
+            if (v.includes('FlyFish')) el.setAttribute(attr, v.replace(/FlyFish/g, 'Craftisle'));
+            if (v.includes('flyfish')) el.setAttribute(attr, v.replace(/flyfish/g, 'craftisle'));
+            if (v.includes('Pure Web')) el.setAttribute(attr, v.replace(/Pure Web/g, 'Free Online'));
+          });
+        });
+
+        // 3. Replace logo images with Craftisle logo
+        document.querySelectorAll('img').forEach(img => {
+          const src = (img.getAttribute('src') || '').toLowerCase();
+          const alt = (img.getAttribute('alt') || '').toLowerCase();
+          if (src.includes('logo') || alt.includes('logo')) {
+            img.src = './assets/logo.svg';
+            img.alt = 'Craftisle';
+          }
+        });
+      }
+
+      // Run once on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', doFixes);
+      } else {
+        doFixes();
+      }
+
+      // === Craftisle: inject sidebar ad ===
+      function injectSidebarAd() {
+        if (!document.body) return;
+        // Avoid duplicate injection
+        if (document.querySelector('.craftisle-ad-sidebar')) return;
+
+        // Find the left panel / control panel — try multiple selectors
+        const leftPanel =
+          document.querySelector('.control-panel') ||
+          document.querySelector('.panel-left') ||
+          document.querySelector('[class*="control-panel"]') ||
+          document.querySelector('[class*="panel-left"]');
+        if (!leftPanel) return;
+
+        const clientId = '';
+        if (!clientId || clientId === '') return; // not configured yet
+
+        const adWrap = document.createElement('div');
+        adWrap.className = 'craftisle-ad-sidebar';
+        adWrap.setAttribute('data-client', clientId);
+        adWrap.innerHTML =
+          '<div class="ad-label">Sponsored</div>' +
+          '<ins class="adsbygoogle" style="display:block" data-ad-client="' + clientId + '" data-ad-slot="viewer-sidebar" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+        leftPanel.appendChild(adWrap);
+
+        // Trigger AdSense load
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          // AdSense not ready — will auto-retry
+        }
+      }
+
+      // Re-run after Vue re-renders
+      const obs = new MutationObserver(() => {
+        doFixes();
+        injectLogo();
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+
+      // Also inject logo into toolbar / sidebar header after Vue mount
+      function injectLogo() {
+        // Try toolbar first
+        var toolbars = document.querySelectorAll('.toolbar, [class*="toolbar"], .app-boot-toolbar');
+        toolbars.forEach(function(tb) {
+          if (tb.querySelector('.craftisle-logo')) return;
+          var img = document.createElement('img');
+          img.src = './assets/logo.svg';
+          img.alt = 'Craftisle';
+          img.className = 'craftisle-logo';
+          img.style.cssText = 'height:28px;width:auto;margin-right:12px;flex-shrink:0';
+          tb.insertBefore(img, tb.firstChild);
+        });
+
+        // Also try to find logo container in sidebar / card header
+        var logoContainers = document.querySelectorAll('.logo, [class*="logo"], .brand, [class*="brand"], .sidebar-header, [class*="sidebar-header"], .card-header, [class*="card-header"]');
+        logoContainers.forEach(function(container) {
+          if (container.querySelector('.craftisle-logo')) return;
+          // If container already has an img, replace it (handled by doFixes step 3)
+          // Otherwise inject new logo img
+          var existingImg = container.querySelector('img');
+          if (!existingImg) {
+            var img = document.createElement('img');
+            img.src = './assets/logo.svg';
+            img.alt = 'Craftisle';
+            img.className = 'craftisle-logo';
+            img.style.cssText = 'height:32px;width:auto;display:block';
+            container.insertBefore(img, container.firstChild);
+          }
+        });
+      }
+      // Run once after DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectLogo);
+      } else {
+        injectLogo();
+      }
+      // Retry after Vue mount (file-viewer loads async)
+      setTimeout(injectLogo, 800);
+      setTimeout(injectLogo, 2500);
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <main class="app-boot-screen" role="status" aria-live="polite" aria-label="Loading File Viewer">
+        <div class="app-boot-shell">
+          <section class="app-boot-preview" aria-hidden="true">
+            <div class="app-boot-toolbar">
+              <span class="app-boot-dot"></span>
+              <span class="app-boot-chip"></span>
+              <span class="app-boot-chip"></span>
+              <span class="app-boot-chip"></span>
+            </div>
+            <div class="app-boot-canvas">
+              <div class="app-boot-nav">
+                <span class="app-boot-line"></span>
+                <span class="app-boot-line"></span>
+                <span class="app-boot-line"></span>
+              </div>
+              <div class="app-boot-page"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
+  </body>
+</html>
