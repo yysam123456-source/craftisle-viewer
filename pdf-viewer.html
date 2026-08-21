@@ -24,7 +24,7 @@
     "operatingSystem": "Web",
     "applicationCategory": "UtilitiesApplication",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "publisher": { "@type": "Organization", "name": "Craftisle", "url": "https://craftisle.com" }
+    "publisher": { "@id": "https://craftisle.com/#organization" }
   }
   </script>
   <style>
@@ -59,7 +59,27 @@
   .silo-nav{margin-top:10px;font-size:0.92rem}
 .silo-nav a{margin:0 6px}
 </style>
-  </head>
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://craftisle.com/#organization",
+        "name": "Craftisle",
+        "url": "https://craftisle.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://viewer.craftisle.com/#website",
+        "url": "https://viewer.craftisle.com",
+        "name": "Craftisle File Viewer",
+        "publisher": { "@id": "https://craftisle.com/#organization" }
+      }
+    ]
+  }
+  </script>
+</head>
 <body>
   <div class="container">
     <header>

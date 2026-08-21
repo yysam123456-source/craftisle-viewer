@@ -31,11 +31,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Craftisle",
-        "url": "https://craftisle.com"
-      }
+      "publisher": { "@id": "https://craftisle.com/#organization" }
     }
     </script>
     <style>
@@ -272,7 +268,27 @@
       const obs = new MutationObserver(() => { doFixes(); });
       obs.observe(document.documentElement, { childList: true, subtree: true });
     </script>
-  </head>
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://craftisle.com/#organization",
+        "name": "Craftisle",
+        "url": "https://craftisle.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://viewer.craftisle.com/#website",
+        "url": "https://viewer.craftisle.com",
+        "name": "Craftisle File Viewer",
+        "publisher": { "@id": "https://craftisle.com/#organization" }
+      }
+    ]
+  }
+  </script>
+</head>
   <body>
     <div id="app">
       <main class="app-boot-screen" role="status" aria-live="polite" aria-label="Loading File Viewer">
