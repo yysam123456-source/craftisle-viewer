@@ -343,58 +343,59 @@
   <!-- SEO/GEO: 静态正文。Vue mount('#app') 会清空容器，所以只能放在 #app 之外；
        这段同时服务无 JS 的爬虫与真实用户（原先只有一段 noscript 兜底，全页 78 词）。 -->
   <section class="seo-about" aria-labelledby="seo-about-h1">
-    <h1 id="seo-about-h1">Craftisle File Viewer — open PDF, Office, image and 3D files in the browser</h1>
+    <h1 id="seo-about-h1">Craftisle Viewer</h1>
     <p>
-      Craftisle File Viewer opens a file and renders it inside the page, so you can see what is in a document
-      before you download it, install anything, or forward it to someone else. It covers documents,
-      spreadsheets, slide decks, images, archives and 3D models — more than 100 formats in total.
-      There is no account and no plugin: choose a file and it opens.
+      Craftisle Viewer renders a file inside the browser tab instead of asking you to install an office
+      suite. The accepted-extension list holds 135 formats, and PDF, DOCX, DWG, STL, EPUB and ZIP all open
+      in place — each through a renderer written for that format rather than a generic text dump. Nothing is
+      converted or re-exported: the file opens as it is. The toolbar offers download, print and HTML export.
     </p>
 
     <h2>What it opens</h2>
     <ul>
-      <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, TXT, Markdown, EPUB</li>
-      <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV</li>
-      <li><strong>Presentations:</strong> PPTX, PPT, ODP</li>
-      <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD</li>
-      <li><strong>3D and CAD:</strong> STL, OBJ, PLY, GLTF, GLB, 3MF, FBX, DWG, DXF</li>
-      <li><strong>Archives and data:</strong> ZIP, JSON, XML, YAML</li>
+      <li>
+        <strong>PDF and Office documents.</strong> PDF pages, DOCX and legacy DOC files, and PPTX decks
+        render in dedicated viewers rather than as raw text. Spreadsheets — XLSX, XLS, XLSM, XLSB, CSV, ODS
+        and Numbers — keep their rows, columns and cell values.
+      </li>
+      <li>
+        <strong>CAD and 3D models.</strong> Over forty CAD and 3D extensions are handled. STL, GLTF, STEP
+        and DWG files can be rotated and inspected without a CAD package installed.
+      </li>
+      <li>
+        <strong>Books and archives.</strong> EPUB and UMD books open with their table of contents; ZIP, 7z,
+        RAR and TAR archives are listed file by file instead of being downloaded blindly.
+      </li>
+      <li>
+        <strong>Data and media.</strong> Markdown, JSON and YAML get their own readers, and MP4 and MP3 play
+        in the page.
+      </li>
     </ul>
 
     <h2>How it works</h2>
     <p>
-      Choose a file from your device, or drop it on the page. The viewer reads the file and draws the result
-      in the browser window: long documents are paginated, spreadsheets keep their grid, and 3D models can be
-      rotated and zoomed. The interface works with a mouse or on a touch screen, on desktop and mobile.
-      Four dedicated pages cover the most common cases:
-      <a href="https://viewer.craftisle.com/pdf-viewer.html">PDF</a>,
-      <a href="https://viewer.craftisle.com/docx-viewer.html">Word</a>,
-      <a href="https://viewer.craftisle.com/xlsx-viewer.html">Excel</a> and
-      <a href="https://viewer.craftisle.com/pptx-viewer.html">PowerPoint</a>.
-    </p>
-
-    <h2>What it does not do</h2>
-    <p>
-      It is a viewer, not an editor. It does not change, annotate, convert, compress or re-export a file,
-      and it does not run OCR on scanned pages. If you need the file itself changed, open it in the
-      application that created it.
+      The file is read through the browser's FileReader and rendered locally, so opening a document does not
+      post it to a server, and there is no account to create. The viewer is a viewer only: it does not edit,
+      convert or re-export the document. A few older formats are not in the accepted list — legacy
+      <code>.ppt</code>, <code>.odt</code> and <code>.rtf</code> will not open, and neither will design files
+      such as <code>.psd</code> or <code>.ai</code>.
     </p>
 
     <h2>Questions</h2>
-    <h3>Do I need to install software?</h3>
+    <h3>What formats can I open?</h3>
     <p>
-      No. The page is a web application; there is no download, no extension and no account. It needs a
-      current browser with JavaScript enabled.
+      PDF, DOCX, DOC, PPTX, XLSX, XLS, CSV, ODS, EPUB, ZIP, Markdown, JSON, images, MP4, MP3 and more than
+      forty CAD and 3D extensions including STL, GLTF, STEP and DWG — 135 in total.
     </p>
-    <h3>Can I open a file on a phone?</h3>
+    <h3>Is my file uploaded?</h3>
     <p>
-      Yes. The viewer is responsive and accepts touch input, so a PDF, a Word document or a 3D model can be
+      No. The file is read in the browser to draw it on screen; there is no upload step and no account, so
+      the document stays on the machine you opened it from.
+    </p>
+    <h3>Does it work on a phone?</h3>
+    <p>
+      Yes. The page is responsive and accepts touch input, so a PDF, a Word document or a 3D model can be
       opened on a phone or tablet without an office suite.
-    </p>
-    <h3>What happens to the file I open?</h3>
-    <p>
-      The file is read by the page you have open, in order to display it. The viewer is a display tool only —
-      it produces no new file and offers no download of a converted result.
     </p>
   </section>
 
