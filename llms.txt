@@ -17,7 +17,7 @@ Craftisle File Viewer opens a file and renders it in the browser: preview a PDF 
 
 ## Supported formats
 
-135 extensions in total. The list below covers the ones people search for; the rest are CAD and 3D
+More than 130 extensions in total. The list below covers the ones people search for; the rest are CAD and 3D
 variants handled by the same viewer.
 
 - **Documents**: PDF, DOCX, DOC, TXT, MD, EPUB, UMD
