@@ -8,9 +8,12 @@ Craftisle File Viewer opens a file and renders it in the browser: preview a PDF 
 
 ## Pages
 
-- [Home](https://viewer.craftisle.com/): open and view a file
-- [About](https://viewer.craftisle.com/about): what the viewer is and is not
-- [Sitemap](https://viewer.craftisle.com/sitemap.xml)
+- [Home](https://viewer.craftisle.com/): open any supported file and view it in the browser
+- [PDF viewer](https://viewer.craftisle.com/pdf-viewer.html): open a PDF without a PDF app
+- [DOCX viewer](https://viewer.craftisle.com/docx-viewer.html): read Word documents without Office
+- [XLSX viewer](https://viewer.craftisle.com/xlsx-viewer.html): read Excel workbooks without Office
+- [PPTX viewer](https://viewer.craftisle.com/pptx-viewer.html): read PowerPoint decks without Office
+- [Sitemap](https://viewer.craftisle.com/sitemap.xml): complete URL list
 
 ## Supported formats
 
