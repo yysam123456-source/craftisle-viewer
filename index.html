@@ -210,6 +210,31 @@
         color: #4a6a8a;
       }
       .silo-nav a { color: #1f966e; margin: 0 6px; }
+      /* === SEO/GEO: 静态正文区（#app 之外，永久可见） === */
+      .seo-about {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 8px 20px 40px;
+        font-family: 'Segoe UI', 'PingFang SC', system-ui, sans-serif;
+        color: #172033;
+        line-height: 1.75;
+      }
+      .seo-about h1 {
+        font-size: 1.5rem;
+        line-height: 1.35;
+        margin: 0 0 14px;
+        color: #1f966e;
+      }
+      .seo-about h2 {
+        font-size: 1.12rem;
+        margin: 26px 0 8px;
+        color: #1f966e;
+      }
+      .seo-about h3 { font-size: 1rem; margin: 16px 0 6px; color: #172033; }
+      .seo-about p { margin: 0 0 12px; font-size: 0.95rem; }
+      .seo-about ul { margin: 0 0 12px; padding-left: 20px; font-size: 0.95rem; }
+      .seo-about li { margin: 4px 0; }
+      .seo-about a { color: #1f966e; }
     </style>
     <script>
       // === Craftisle: rebrand only (no panel hiding here) ===
@@ -315,22 +340,64 @@
     </div>
     <script type="module" crossorigin src="./assets/index-CLEdsJjy.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BjTZLd3d.css">
-    <noscript>
-      <section style="max-width:720px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;border:1px solid rgba(114,137,161,0.15);font-family:'Segoe UI','PingFang SC',sans-serif;color:#172033;">
-        <h1 style="color:#1f966e;font-size:1.8rem;margin-bottom:14px;">Craftisle File Viewer — Free Online</h1>
-        <p style="color:#4a6a8a;line-height:1.7;margin-bottom:16px;">
-          Free online file viewer. View <strong>PDF</strong>, <strong>Word (DOCX)</strong>, <strong>Excel (XLSX)</strong>, <strong>PowerPoint (PPTX)</strong>, images, 3D models, CAD files and <strong>100+ formats</strong> instantly in your browser. No signup, no installation.
-        </p>
-        <h2 style="color:#1f966e;font-size:1.2rem;margin:18px 0 10px;">Supported Formats</h2>
-        <ul style="color:#333;line-height:1.8;padding-left:20px;">
-          <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, EPUB</li>
-          <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV</li>
-          <li><strong>Presentations:</strong> PPTX, PPT, ODP</li>
-          <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD</li>
-          <li><strong>3D & CAD:</strong> STL, OBJ, PLY, GLTF, FBX, STEP, DWG, DXF</li>
-        </ul>
-      </section>
-    </noscript>
+  <!-- SEO/GEO: 静态正文。Vue mount('#app') 会清空容器，所以只能放在 #app 之外；
+       这段同时服务无 JS 的爬虫与真实用户（原先只有一段 noscript 兜底，全页 78 词）。 -->
+  <section class="seo-about" aria-labelledby="seo-about-h1">
+    <h1 id="seo-about-h1">Craftisle File Viewer — open PDF, Office, image and 3D files in the browser</h1>
+    <p>
+      Craftisle File Viewer opens a file and renders it inside the page, so you can see what is in a document
+      before you download it, install anything, or forward it to someone else. It covers documents,
+      spreadsheets, slide decks, images, archives and 3D models — more than 100 formats in total.
+      There is no account and no plugin: choose a file and it opens.
+    </p>
+
+    <h2>What it opens</h2>
+    <ul>
+      <li><strong>Documents:</strong> PDF, DOCX, DOC, ODT, RTF, TXT, Markdown, EPUB</li>
+      <li><strong>Spreadsheets:</strong> XLSX, XLS, ODS, CSV</li>
+      <li><strong>Presentations:</strong> PPTX, PPT, ODP</li>
+      <li><strong>Images:</strong> JPG, PNG, GIF, BMP, TIFF, WEBP, SVG, PSD</li>
+      <li><strong>3D and CAD:</strong> STL, OBJ, PLY, GLTF, GLB, 3MF, FBX, DWG, DXF</li>
+      <li><strong>Archives and data:</strong> ZIP, JSON, XML, YAML</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <p>
+      Choose a file from your device, or drop it on the page. The viewer reads the file and draws the result
+      in the browser window: long documents are paginated, spreadsheets keep their grid, and 3D models can be
+      rotated and zoomed. The interface works with a mouse or on a touch screen, on desktop and mobile.
+      Four dedicated pages cover the most common cases:
+      <a href="https://viewer.craftisle.com/pdf-viewer.html">PDF</a>,
+      <a href="https://viewer.craftisle.com/docx-viewer.html">Word</a>,
+      <a href="https://viewer.craftisle.com/xlsx-viewer.html">Excel</a> and
+      <a href="https://viewer.craftisle.com/pptx-viewer.html">PowerPoint</a>.
+    </p>
+
+    <h2>What it does not do</h2>
+    <p>
+      It is a viewer, not an editor. It does not change, annotate, convert, compress or re-export a file,
+      and it does not run OCR on scanned pages. If you need the file itself changed, open it in the
+      application that created it.
+    </p>
+
+    <h2>Questions</h2>
+    <h3>Do I need to install software?</h3>
+    <p>
+      No. The page is a web application; there is no download, no extension and no account. It needs a
+      current browser with JavaScript enabled.
+    </p>
+    <h3>Can I open a file on a phone?</h3>
+    <p>
+      Yes. The viewer is responsive and accepts touch input, so a PDF, a Word document or a 3D model can be
+      opened on a phone or tablet without an office suite.
+    </p>
+    <h3>What happens to the file I open?</h3>
+    <p>
+      The file is read by the page you have open, in order to display it. The viewer is a display tool only —
+      it produces no new file and offers no download of a converted result.
+    </p>
+  </section>
+
   <footer class="silo-nav" aria-label="Craftisle file format viewers">
     <a href="https://viewer.craftisle.com/">Home</a> ·
     <a href="https://viewer.craftisle.com/pdf-viewer.html">PDF</a> ·
