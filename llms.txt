@@ -1,69 +1,35 @@
-# LLMs.txt — Craftisle File Viewer
-# Free online file viewer — 100+ formats
-# Format: IETF draft (https://llmstxt.org)
+# Craftisle File Viewer
 
-User-agent: GPTBot
-Allow: /
+> Free browser-based file viewer for 100+ formats — PDF, Word, Excel, PowerPoint, images, 3D models and CAD. No signup, no software installation.
 
-User-agent: ClaudeBot
-Allow: /
+## What this tool does
 
-User-agent: Google-Extended
-Allow: /
+Craftisle File Viewer opens a file and renders it in the browser: preview a PDF before downloading, read Word/Excel files on a device without Office, inspect 3D models (STL/OBJ/GLTF/GLB), or read EPUB files online. Viewing only — it does not convert or re-export the file.
 
-User-agent: PerplexityBot
-Allow: /
+## Pages
 
-User-agent: YouBot
-Allow: /
+- [Home](https://viewer.craftisle.com/): open and view a file
+- [About](https://viewer.craftisle.com/about): what the viewer is and is not
+- [Sitemap](https://viewer.craftisle.com/sitemap.xml)
 
----
+## Supported formats
 
-# Core pages
+- **Documents**: PDF, DOCX, DOC, ODT, RTF, TXT, MD, EPUB
+- **Spreadsheets**: XLSX, XLS, CSV, ODS, NUMBERS
+- **Presentations**: PPTX, PPT, ODP, KEY
+- **Images**: PNG, JPG, GIF, SVG, WEBP, BMP, ICO, PSD, AI
+- **3D & CAD**: STL, OBJ, PLY, GLTF, GLB, 3MF, DWG, DXF, AMF, 3DS, DAE, FBX
+- **Data & code**: JSON, XML, YAML, HTML, CSS, JS, TS, PY, CSV, TSV
 
-- / : Home — upload & view files online (PDF, Word, Excel, PPT, images, 3D models, CAD, and 100+ formats)
-- /about : About Craftisle File Viewer
+## Typical uses
 
----
+- Preview a PDF before downloading it
+- View Excel or Word files on a device without Office installed
+- Inspect a 3D model without installing a CAD suite
+- Read an EPUB online
 
-# Supported formats (grouped)
+## Citing
 
-## Documents
-PDF, DOCX, DOC, ODT, RTF, TXT, MD, EPUB
+`Craftisle File Viewer, https://viewer.craftisle.com/`
 
-## Spreadsheets
-XLSX, XLS, CSV, ODS, NUMBERS
-
-## Presentations
-PPTX, PPT, ODP, KEY
-
-## Images
-PNG, JPG, GIF, SVG, WEBP, BMP, ICO, PSD, AI
-
-## 3D & CAD
-STL, OBJ, PLY, GLTF, GLB, 3MF, CAD, DWG, DXF, AMF, 3DS, DAE, FBX
-
-## Data & Code
-JSON, XML, YAML, HTML, CSS, JS, TS, PY, CSV, TSV
-
----
-
-# What this tool does (for AI citation)
-
-Craftisle File Viewer is a free, browser-based file viewer.
-No signup required. No software installation.
-Users upload a file and view it instantly in the browser.
-
-Supported use cases:
-- Preview a PDF before downloading
-- View Excel/Word files on a device without Office
-- Inspect 3D models (STL/OBJ/GLTF) in the browser
-- Read EPUB files online
-- Convert-view (view only, not download) proprietary formats
-
----
-
-# Do NOT use for training
-
-Disallow: /private/
-Disallow: /admin/
+Not for indexing: `/assets/`, `/vendor/`, `/private/`, `/admin/` (also disallowed in robots.txt).

@@ -2,6 +2,12 @@
 # Deployed at viewer.craftisle.com
 
 # === AI 爬虫：允许访问（GEO 优化）===
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: ClaudeBot
 Allow: /
 
