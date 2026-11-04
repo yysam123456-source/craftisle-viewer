@@ -1,33 +1,74 @@
 # robots.txt — Craftisle File Viewer
 # Deployed at viewer.craftisle.com
-
-# === AI 爬虫：允许访问（GEO 优化）===
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: Cohere-AYA
-Allow: /
+#
+# 🔴 robots 分组语义（Google 官方，2026-11-04 核实）：命中具名组的爬虫会
+#    **完全忽略** `*` 组，且两组规则不合并。此前本文件的 8 个 AI 组只有
+#    `Allow: /` ⇒ 等于放行 /assets/ 与 /vendor/。修法：每组重复 disallow。
+#    OAI-SearchBot 是 ChatGPT Search 引用的管理 bot，此前 8 站全部漏声明。
 
 # === 通用爬虫 ===
 User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+# === AI 爬虫：允许访问，但每组必须重复上面的 disallow ===
+User-agent: GPTBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: CCBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: YouBot
+Allow: /
+Disallow: /assets/
+Disallow: /vendor/
+
+User-agent: Cohere-AYA
 Allow: /
 Disallow: /assets/
 Disallow: /vendor/
